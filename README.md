@@ -7,7 +7,6 @@
 - PHP 7.4
 - MySQL 5.7
 - Composer
-- Yarn
 
 ### Usage
 ---
@@ -36,7 +35,7 @@ cd test_jarvis_legal
 - bin/console doctrine:schema:update -f
 
 # Lance les fixtures pour avoir des données de test en base
-- bin/console doctrine:fixtures:load
+- bin/console hautelook:fixtures:load --no-bundles
 ```
 
 =======
@@ -53,7 +52,7 @@ composer require lexik/jwt-authentication-bundle
 $ mkdir config/jwt
 $ openssl genrsa -out config/jwt/private.pem -aes256 4096
 $ openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
-Password jwt: Jarvis#2020*22
+Password jwt: JarvIs2020*22
 ```
 
 - Configuring the Bundle
@@ -73,3 +72,6 @@ lexik_jwt_authentication:
 ---
 
 - Jonathan Kablan
+
+
+![Screenshot](https://github.com/jonathankablan/test_jarvis_legal/app/symfony/public/uploads/images/screenshot.png)
