@@ -73,5 +73,4 @@ lexik_jwt_authentication:
 
 - Jonathan Kablan
 
-
-![Screenshot](https://github.com/jonathankablan/test_jarvis_legal/app/symfony/public/uploads/images/screenshot.png)
+![Screenshot](https://github.com/jonathankablan/test_jarvis_legal/blob/master/app/symfony/public/uploads/images/screenshot.png)
