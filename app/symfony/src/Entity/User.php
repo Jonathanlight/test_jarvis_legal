@@ -35,14 +35,14 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=150, nullable=true)
      * @Groups({"user:read", "user:write"})
      * @Assert\Length(min = 2 ,max = 50)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=150, nullable=true)
      * @Groups({"user:read", "user:write"})
      * @Assert\Length(min = 2 ,max = 50)
      */
