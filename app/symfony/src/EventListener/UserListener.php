@@ -5,6 +5,7 @@ namespace App\EventListener;
 use App\Entity\User;
 use App\Service\LoggerService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Events;
 
 class UserListener
 {
@@ -22,6 +23,14 @@ class UserListener
     }
 
     /**
+     * @return array
+     */
+    public function getSubscribedEvents()
+    {
+        return [ Events::prePersist, Events::preUpdate ];
+    }
+
+    /**
      * @param LifecycleEventArgs $args
      * @throws \Exception
      */
@@ -33,6 +42,7 @@ class UserListener
             $entity->setCreated(new \DateTime());
         }
     }
+
     /**
      * @param LifecycleEventArgs $args
      * @throws \Exception
@@ -43,7 +53,7 @@ class UserListener
         if (true === property_exists($entity, 'updated') && $entity instanceof User) {
             $entity->setUpdated(new \DateTime());
 
-            $this->loggerService->log("Log : " . $entity->getUpdated()->format("d/m/Y H:i" . " - Id : " . $entity->getId() . " - Firstname :" . $entity->getFirstname() . " - Lastname :" . $entity->getLastname()));
+            $this->loggerService->info("Log : " . $entity->getUpdated()->format("d/m/Y H:i" . " - Id : " . $entity->getId() . " - Firstname :" . $entity->getFirstname() . " - Lastname :" . $entity->getLastname()));
         }
     }
 }
