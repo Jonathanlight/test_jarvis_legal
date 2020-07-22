@@ -1,6 +1,6 @@
 .idea/*
 .idea
-/docker
+/docker/mysql/data/*
 
 # Cache and logs (Symfony2)
 /app/cache/*
