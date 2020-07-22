@@ -28,7 +28,7 @@ class UserListener
      */
     public function getSubscribedEvents()
     {
-        return [ Events::prePersist, Events::preUpdate ];
+        return [ Events::prePersist, Events::preUpdate, Events::postRemove ];
     }
 
     /**
@@ -54,7 +54,20 @@ class UserListener
         if (true === property_exists($entity, 'updated') && $entity instanceof User) {
             $entity->setUpdated(new \DateTime());
 
-            $this->loggerService->log(LoggerService::LEVEL_INFO,"Log : " . $entity->getUpdated()->format("d/m/Y H:i") . " - Id : " . $entity->getId() . " - Firstname : " . $entity->getFirstname() . " - Lastname : " . $entity->getLastname());
+            $this->loggerService->log(LoggerService::LEVEL_INFO,"Log UPDATE : " . $entity->getUpdated()->format("d/m/Y H:i") . " - Id : " . $entity->getId() . " - Firstname : " . $entity->getFirstname() . " - Lastname : " . $entity->getLastname());
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $args
+     * @throws \Exception
+     */
+    public function postRemove(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+        if ($entity instanceof User) {
+            $removeDate  =new \DateTime();
+            $this->loggerService->log(LoggerService::LEVEL_INFO,"Log REMOVE : " . $removeDate->format("d/m/Y H:i") . " - Id : " . $entity->getId() . " - Firstname : " . $entity->getFirstname() . " - Lastname : " . $entity->getLastname());
         }
     }
 }
