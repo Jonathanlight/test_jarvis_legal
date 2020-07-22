@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  apache:
+    ports:
+      - "9400:80"
+  mysql:
+    ports:
+      - "8004:3306"
+  phpmyadmin:
+    ports:
+      - "8001:80"

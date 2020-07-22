@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  php:
+    environment:
+      - SYMFONY_ENV=dev
+    image: php:7.4-apache
+    container_name: php
+    env_file:
+      - ./app/symfony/.env.local
+    volumes:
+      - ./app/symfony:/var/www/symfony
+    depends_on:
+      - mysql
+
+  apache:
+    build:
+      context: ./docker/build/apache
+    container_name: apache
+    ports:
+      - "81:80"
+    depends_on:
+      - mysql
+    env_file:
+      - ./app/symfony/.env.local
+    volumes:
+      - ./docker/etc/apache/virtualhost.conf:/etc/apache2/sites-enabled/000-default.conf:ro
+      - ./docker/etc/php/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/etc/php/php-cli.ini:/usr/local/etc/php/php-cli.ini
+      - ./app/symfony:/var/www/symfony
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "8004:3306"
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql:rw
+      - "./docker/mysql/tmp:/home/tmp"
+      - ./docker/etc/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PORT=3306
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=clarisse_media
+
+  phpmyadmin:
+    ports:
+      - "8002:80"
+    image: nazarpc/phpmyadmin
+    container_name: pma
+    environment:
+      - PMA_HOST=db
+    depends_on:
+      - mysql
