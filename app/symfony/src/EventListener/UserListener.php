@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Service\LoggerService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Monolog\Logger;
 
 class UserListener
 {
@@ -53,7 +54,7 @@ class UserListener
         if (true === property_exists($entity, 'updated') && $entity instanceof User) {
             $entity->setUpdated(new \DateTime());
 
-            $this->loggerService->info("Log : " . $entity->getUpdated()->format("d/m/Y H:i" . " - Id : " . $entity->getId() . " - Firstname :" . $entity->getFirstname() . " - Lastname :" . $entity->getLastname()));
+            $this->loggerService->log(LoggerService::LEVEL_INFO,"Log : " . $entity->getUpdated()->format("d/m/Y H:i") . " - Id : " . $entity->getId() . " - Firstname : " . $entity->getFirstname() . " - Lastname : " . $entity->getLastname());
         }
     }
 }

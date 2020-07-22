@@ -6,9 +6,10 @@ use Psr\Log\LoggerInterface;
 
 class LoggerService
 {
-    const LEVEL_WARNING = "warning";
-    const LEVEL_INFO = "info";
-    const LEVEL_ERROR = "error";
+    const LEVEL_ERROR = "ERROR";
+    const LEVEL_NOTICE = "NOTICE";
+    const LEVEL_INFO = "INFO";
+    const LEVEL_DEBUG = "DEBUG";
 
     /**
      * @var LoggerInterface
